@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  db:
+    image: mysql
+    volumes:
+      - ./Volumenes/bbdd:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=dwes
+      - MYSQL_USER=dwes
+      - MYSQL_PASSWORD=dwes
+    expose:
+      - 3306
+      - 33060
+  app:
+    #image: php:7.4-apache
+    image: mikelmc96byte/php-7.4-apache
+    build: ./web
+    volumes:
+      - ./Volumenes/proyecto:/var/www/html
+    ports:
+      - 80:80
+    depends_on:
+      - db
